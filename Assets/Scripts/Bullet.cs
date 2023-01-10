@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IDamaged
 {
     private float speed;
     public Vector3 dir;
 
     private void OnEnable()
     {
-        speed = 3;
+        speed = 5;
         StartCoroutine(SetActive());
     }
 
@@ -28,8 +28,13 @@ public class Bullet : MonoBehaviour
     {
         if(other.tag == "enemy")
         {
-            other.GetComponent<Enemy>().GetDamage(2);
+            other.GetComponent<IDamaged>().SetDamaged(5);
             gameObject.SetActive(false);
         }
+    }
+
+    public void SetDamaged(int _damage)
+    {
+        
     }
 }

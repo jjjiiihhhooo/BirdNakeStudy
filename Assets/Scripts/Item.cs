@@ -3,38 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Item : MonoBehaviour
 {
-    [SerializeField] private Manager manager;
+    private int eggType;
     private float x, y;
 
+    [SerializeField] private Manager manager;
+
     private SpriteRenderer itemSprite;
-    int eggType;
+
     private void Start()
     {
-        itemSprite= GetComponent<SpriteRenderer>();
+        manager = FindObjectOfType<Manager>();
+        SetPosition();
+        itemSprite = GetComponent<SpriteRenderer>();
         eggType = Random.Range(0, 12);
-        Init();
+        itemSprite.sprite = TestSpriteZip.instance.unitImages[12 + eggType];
     }
 
-    private void Init()
+    private void SetPosition()
     {
-        manager.Init(eggType);
+        x = Random.Range(-8, 8);
+        y = Random.Range(-4, 4);
+        transform.position = new Vector3(x, y, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "head")
         {
-
-            x = Random.Range(-8, 8);
-            y = Random.Range(-4, 4);
-  
             manager.GetItem(this.transform, eggType);
             eggType = Random.Range(0, 12);
             itemSprite.sprite = TestSpriteZip.instance.unitImages[12+eggType];
-            transform.position = new Vector3(x, y, 0);
+            SetPosition();
         }
     }
-
-
-
 }

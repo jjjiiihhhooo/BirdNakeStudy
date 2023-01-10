@@ -17,9 +17,6 @@ public class EnemyPool : MonoBehaviour
     {
         for(int i = 0; i < size; i++)
             CreatePool();
-
-        for (int i = 0; i < size; i++)
-            SetActiveEnemy(enemyList[i].gameObject);
     }
 
     private void SetActiveEnemy(GameObject _enemy)
@@ -31,7 +28,6 @@ public class EnemyPool : MonoBehaviour
     {
         Enemy temp = Instantiate(enemy, transform);
         enemyList.Add(temp);
-        temp.gameObject.SetActive(false);
     }
 
     public Enemy PopUnit()

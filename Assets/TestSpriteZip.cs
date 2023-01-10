@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestSpriteZip : MonoBehaviour
 {
-    public static TestSpriteZip instance;
+    public static TestSpriteZip instance = null;
     [SerializeField] public Sprite[] unitImages;
     
     private void Awake()

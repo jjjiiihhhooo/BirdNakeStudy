@@ -7,8 +7,9 @@ public class Fire : MonoBehaviour
     private bool isTarget;
     private bool isFire = true;
     private float fireDelay = 0.5f;
-    [SerializeField] private float fireTimer;
     private Vector3 fireDir;
+    [SerializeField] private float fireTimer;
+
     private Bullet tempBullet;
 
     private void Update()
@@ -22,7 +23,6 @@ public class Fire : MonoBehaviour
         {
             if(fireTimer > fireDelay)
             {
-                transform.rotation = Quaternion.LookRotation(fireDir).normalized;
                 tempBullet = BulletPool.instance.PopBullet();
                 tempBullet.transform.position = this.transform.position;
                 tempBullet.dir = fireDir;
@@ -32,7 +32,6 @@ public class Fire : MonoBehaviour
             fireTimer += Time.deltaTime;
         }
     }
-
 
     private void OnTriggerStay2D(Collider2D other)
     {

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour , IDamaged
 {
-    private int hp = 100;
+    private int hp = 30;
     private float x;
     private float y;
     private float speed;
@@ -23,11 +23,6 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        //y -= speed;
-        //transform.position = new Vector3(x, y, 0);
-
-        //if(y <= -6f)
-        //    SetPosition();
         transform.position += Time.deltaTime * dir * speed;
         if (timer <= 0)
         {
@@ -53,11 +48,6 @@ public class Enemy : MonoBehaviour
         dir = new Vector3(randomX, randomY, 0);
     }
 
-    public void GetDamage(int _damage)
-    {
-        hp -= _damage;
-    }
-
     private void SetPosition()
     {
         speed = Random.Range(1.0f, 3.0f);
@@ -65,15 +55,24 @@ public class Enemy : MonoBehaviour
         float randomY = Random.Range(4.0f, -4.0f);
 
         transform.position = new Vector3(randomX, randomY, 0);
-        hp = 100;
+        hp = 30;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "head" || other.tag == "body")
         {
-            //manager.GetDamage(other.GetComponent<Unit>().Order);
+            other.GetComponent<IDamaged>().SetDamaged(5);
+
+            if(other.GetComponent<Unit>().Hp <= 0)
+                manager.GetDamage(other.GetComponent<Unit>().Order);
+
             SetPosition();
         }
+    }
+
+    public void SetDamaged(int _damage)
+    {
+        hp -= _damage;
     }
 }

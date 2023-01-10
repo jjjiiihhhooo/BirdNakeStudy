@@ -6,6 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+
+interface IDamaged
+{
+    void SetDamaged(int _damage);
+}
 [System.Serializable]
 public class UnitData
 {
@@ -29,12 +34,12 @@ public class Manager : MonoBehaviour
     [SerializeField] private List<Unit> units;
     [SerializeField] private UnitPool unitPool;
 
-    public Sprite[] eggImage;
-    public Sprite[] birdImage;
-
     private RuntimeAnimatorController animator;
 
+    public Sprite[] eggImage;
+    public Sprite[] birdImage;
     public UnitData[] unitdatas;
+
     private void Start()
     {
         animator = GetComponent<RuntimeAnimatorController>();
@@ -44,11 +49,12 @@ public class Manager : MonoBehaviour
             unitdatas[i] = new UnitData();
             unitdatas[i].SetUnitInfo(i, 12+i);
         }
+        Init();
     }
 
-    public void Init(int eggType)
+    public void Init()
     {
-        SpawnUnit(this.transform, eggType);
+        SpawnUnit(this.transform, 10);
         units[0].Timer = 0;
     }
 
@@ -86,7 +92,6 @@ public class Manager : MonoBehaviour
             units[_order].tag = "head";
     }
 
-
     public Sprite SetImage(int _check)
     {
         int random = Random.Range(0, eggImage.Length - 1);
@@ -122,7 +127,6 @@ public class Manager : MonoBehaviour
         }
     }
 
-
     public void ChangeUnit(int _change)
     {
         if (_change < currentSize && units[_change].isBird)
@@ -138,28 +142,4 @@ public class Manager : MonoBehaviour
         }
     }
 
-    //private void SetOrder(int i)
-    //{
-    //    Units[i].OrderChange(i);
-    //}
-
-    //private void SetKeyInput(int i)
-    //{
-    //    Units[i].GetKeyInput(keyInput);
-    //}
-
-    //private void ChangeImage(int i, Sprite egg, Sprite bird)
-    //{
-    //    Units[i].SetImage(egg, bird);
-    //}
-
-    //private void SetFront()
-    //{
-    //    Units[0].tag = "head";
-    //    for(int i = 1; i < size; i++)
-    //    {
-    //        Units[i].SetFrontUnit(Units[Units[i].order - 1]);
-    //        Units[i].tag = "body";
-    //    }
-    //}
 }
