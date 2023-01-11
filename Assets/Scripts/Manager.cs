@@ -131,7 +131,11 @@ public class Manager : MonoBehaviour
     {
         if (_change < currentSize && units[_change].isBird)
         {
+            //units[_change].transform.GetChild(0).SetParent(units[0].transform);
+            //units[0].transform.GetChild(0).SetParent(units[_change].transform);
+            //units[]
             Unit temp = units[_change];
+
             units[_change].tag = "head";
             units[_change].Order = 0;
             units[_change] = units[0];
