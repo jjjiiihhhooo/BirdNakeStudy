@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour , IDamaged
     //필요한 컴포넌트
     private UnitData unitData;
     private SpriteRenderer unitSprite;
-    private Animator animator;
+    public Animator animator;
 
     private void Awake()
     {

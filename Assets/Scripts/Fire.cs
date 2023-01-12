@@ -24,6 +24,7 @@ public class Fire : MonoBehaviour
             if(fireTimer > fireDelay)
             {
                 tempBullet = BulletPool.instance.PopBullet();
+                tempBullet.tag = "PlayerBullet";
                 tempBullet.transform.position = this.transform.position;
                 tempBullet.dir = fireDir;
                 tempBullet.gameObject.SetActive(true);

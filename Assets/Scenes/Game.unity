@@ -376,6 +376,8 @@ MonoBehaviour:
   testBool: 0
   units: []
   unitPool: {fileID: 1860423507}
+  animator:
+  - {fileID: 22100000, guid: e48b2fc8de6efa64794334267a8c7857, type: 2}
   eggImage:
   - {fileID: 21300000, guid: 471ac8dcc26de3b459223d3ea4b98734, type: 3}
   - {fileID: 21300000, guid: 5198410d42da68b4494b48997fccdd8e, type: 3}

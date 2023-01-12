@@ -34,7 +34,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private List<Unit> units;
     [SerializeField] private UnitPool unitPool;
 
-    private RuntimeAnimatorController animator;
+    [SerializeField] private RuntimeAnimatorController[] animator;
 
     public Sprite[] eggImage;
     public Sprite[] birdImage;
@@ -42,7 +42,6 @@ public class Manager : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<RuntimeAnimatorController>();
         unitdatas = new UnitData[12];
         for(int i =0; i< unitdatas.Length; i++)
         {
@@ -50,6 +49,11 @@ public class Manager : MonoBehaviour
             unitdatas[i].SetUnitInfo(i, 12+i);
         }
         Init();
+    }
+
+    public Vector3 HeadVec()
+    {
+        return units[0].transform.position;
     }
 
     public void Init()
@@ -64,7 +68,7 @@ public class Manager : MonoBehaviour
         units.Add(test);
         test.transform.position = _transform.position;
         test.gameObject.SetActive(true);
-        test.SetData(unitdatas[eggType], animator);
+        test.SetData(unitdatas[eggType], animator[0]);
         test.Order = currentSize++;
         if (test.Order == 0)
             test.tag = "head";
@@ -133,16 +137,21 @@ public class Manager : MonoBehaviour
         {
             units[_change].transform.GetChild(0).SetParent(units[0].transform);
             units[0].transform.GetChild(0).SetParent(units[_change].transform);
+
             units[0].transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 0);
             units[_change].transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 0);
-            
-            //Unit temp = units[_change];
-            //units[_change].tag = "head";
-            //units[_change].Order = 0;
-            //units[_change] = units[0];
-            //units[0].Order = _change;
-            //units[0].tag = "body";
-            //units[0] = temp;
+
+            units[_change].animator.Play("BirdChange");
+            units[0].animator.Play("BirdChange");
+            //units[0].animator.SetBool("BirdChange", true);
+
+            /*Unit temp = units[_change];
+            units[_change].tag = "head";
+            units[_change].Order = 0;
+            units[_change] = units[0];
+            units[0].Order = _change;
+            units[0].tag = "body";
+            units[0] = temp;*/
 
         }
     }

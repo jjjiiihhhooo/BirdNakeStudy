@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour , IDamaged
     {
         timer = 30;
         manager = FindObjectOfType<Manager>();
+        transform.GetComponentInChildren<EnemyFire>().manager = manager;
         SetPosition();
         SetDir();
     }
@@ -56,19 +57,6 @@ public class Enemy : MonoBehaviour , IDamaged
 
         transform.position = new Vector3(randomX, randomY, 0);
         hp = 30;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.tag == "head" || other.tag == "body")
-        {
-            other.GetComponent<IDamaged>().SetDamaged(5);
-
-            if(other.GetComponent<Unit>().Hp <= 0)
-                manager.GetDamage(other.GetComponent<Unit>().Order);
-
-            SetPosition();
-        }
     }
 
     public void SetDamaged(int _damage)

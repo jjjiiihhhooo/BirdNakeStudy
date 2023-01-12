@@ -4,29 +4,46 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour, IDamaged
 {
-    private float speed;
+    [SerializeField] private float speed;
     public Vector3 dir;
+
+    private SpriteRenderer sprite;
 
     private void OnEnable()
     {
-        speed = 5;
+        sprite = GetComponent<SpriteRenderer>();
         StartCoroutine(SetActive());
+        if (this.tag == "EnemyBullet")
+        {
+            speed = 2f;
+            sprite.color = Color.black;
+        }
+        else if (this.tag == "PlayerBullet")
+        {
+            speed = 8;
+            sprite.color = Color.red;
+        }
     }
 
     private IEnumerator SetActive()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(7f);
         gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        transform.position += dir * speed * Time.deltaTime;
+        transform.position += dir.normalized * speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "enemy")
+        if(other.tag == "enemy" && this.tag == "PlayerBullet")
+        {
+            other.GetComponent<IDamaged>().SetDamaged(5);
+            gameObject.SetActive(false);
+        }
+        else if((other.tag == "head" || other.tag == "body") && this.tag == "EnemyBullet")
         {
             other.GetComponent<IDamaged>().SetDamaged(5);
             gameObject.SetActive(false);

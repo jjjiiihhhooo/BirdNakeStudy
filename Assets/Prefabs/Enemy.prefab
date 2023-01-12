@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3882930706355763271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4458720115482820227}
+  - component: {fileID: 387329097943976668}
+  m_Layer: 0
+  m_Name: EnemyFire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4458720115482820227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882930706355763271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5639684727585428214}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &387329097943976668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882930706355763271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b36f422ecf64bda45803b97df89fa70e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireTimer: 0
 --- !u!1 &4661865865573343618
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,8 +56,8 @@ GameObject:
   - component: {fileID: 5639684727585428214}
   - component: {fileID: 8268152153790466039}
   - component: {fileID: 2657060836914416591}
-  - component: {fileID: 2140547218}
-  - component: {fileID: 5498366506318749934}
+  - component: {fileID: 1218936236929991471}
+  - component: {fileID: 4916015688745246424}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: enemy
@@ -31,7 +76,8 @@ Transform:
   m_LocalPosition: {x: -0.09, y: 5.91, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4458720115482820227}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -99,8 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cb8f3dc29b2e249807837534062144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
---- !u!70 &2140547218
+--- !u!70 &1218936236929991471
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,7 +161,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.49, y: 0.65}
   m_Direction: 0
---- !u!50 &5498366506318749934
+--- !u!50 &4916015688745246424
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
