@@ -31,6 +31,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private bool testBool;
     private int currentSize = 0;
 
+
     [SerializeField] private List<Unit> units;
     [SerializeField] private UnitPool unitPool;
 
@@ -131,6 +132,13 @@ public class Manager : MonoBehaviour
         }
     }
 
+    private IEnumerator AnimChange(int _change, string _name, bool _bool)
+    {
+        yield return new WaitForSeconds(0.2f);
+        units[_change].animator.SetBool(_name, _bool);
+        units[0].animator.SetBool(_name, _bool);
+    }
+
     public void ChangeUnit(int _change)
     {
         if (_change < currentSize && units[_change].isBird)
@@ -141,9 +149,13 @@ public class Manager : MonoBehaviour
             units[0].transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 0);
             units[_change].transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 0);
 
-            units[_change].animator.Play("BirdChange");
-            units[0].animator.Play("BirdChange");
-            //units[0].animator.SetBool("BirdChange", true);
+
+            units[_change].animator.SetBool("isChange", true);
+            units[0].animator.SetBool("isChange", true);
+
+            StartCoroutine(AnimChange(_change, "isChange", false));
+            //units[_change].animator.SetBool("isChange", false);
+            //units[0].animator.SetBool("isChange", false);
 
             /*Unit temp = units[_change];
             units[_change].tag = "head";
